@@ -1,0 +1,15 @@
+{
+    "name": "hacker/cinetech_learning",
+    "autoload": {
+        "psr-4": {
+            "Hacker\\CinetechLearning\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Romain Bzz",
+            "email": "125037847+Rutkarf@users.noreply.github.com"
+        }
+    ],
+    "require": {}
+}
