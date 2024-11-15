@@ -1,7 +1,11 @@
+<?php
+header('Content-Type: text/html; charset=utf-8');
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $title; ?></title>
@@ -12,7 +16,11 @@
 
     <!-- Autres balises THREE.JS -->
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/controls/OrbitControls.js"></script>
 
+    
+    <script src="ThreeJsParticules.js"></script>
 
 
 
@@ -20,4 +28,4 @@
 
 <body>
 
-    <div id="three-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
+<div id="three-container"></div>

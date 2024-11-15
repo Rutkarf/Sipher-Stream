@@ -1,4 +1,9 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
+?>
+
+
+<?php
 require __DIR__ . '/vendor/autoload.php';
 
 use App\Router;
