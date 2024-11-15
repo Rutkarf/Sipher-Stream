@@ -1,31 +1,4 @@
 
-
-
-<!-- views/home.php -->
-
-<!-- La navbar est supposée être déjà incluse avant ce contenu -->
-
-
-
-<!-- views/home.php -->
-
-<!-- La navbar est supposée être déjà incluse avant ce contenu -->
-
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription - Sipher*Stream</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        <div class="row justify-content-center align-items-center min-vh-100">
-            <div class="col-md-6 col-lg-4">
-                <div class="register-container">
-                    <h2 class="text-center mb-4">Inscription à Sipher*Stream</h2>
                     
                     <?php if ($this->hasErrors()): ?>
                         <div class="alert alert-danger">

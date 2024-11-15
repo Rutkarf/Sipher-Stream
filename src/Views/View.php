@@ -26,8 +26,6 @@ class View {
             // Include head
             require __DIR__ . "/templates" . $this->layouts[$this->layout]['head'];
             
-            echo "<body class=\"bg-gradient\">\n";
-            
             // Include navigation
             require __DIR__ . "/templates" . $this->layouts[$this->layout]['navbar'];
 
