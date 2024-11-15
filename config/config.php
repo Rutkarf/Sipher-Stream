@@ -3,7 +3,7 @@ return[
 
 'db' => [
  'host' => 'localhost',
- 'dbname' => 'cintech',
+ 'dbname' => 'cinetech',
  'user' => 'root',
  'password' => '',
  'charset' => 'utf8mb4'
