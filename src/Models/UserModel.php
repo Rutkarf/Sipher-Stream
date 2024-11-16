@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Models;
+
 class UserModel
 {
     private $id;
@@ -52,7 +54,7 @@ class UserModel
     {
         // Logique pour sauvegarder l'utilisateur dans la base de données
         // Exemple simplifié (à adapter selon votre système de base de données) :
-        $db = new PDO("mysql:host=localhost;dbname=votre_base_de_donnees", "utilisateur", "mot_de_passe");
+        $db = new \PDO("mysql:host=localhost;dbname=votre_base_de_donnees", "utilisateur", "mot_de_passe");
         $stmt = $db->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
         return $stmt->execute([$this->username, $this->email, $this->password]);
     }
@@ -60,10 +62,10 @@ class UserModel
     public static function findByUsername($username): ?UserModel
     {
         // Logique pour trouver un utilisateur par son nom d'utilisateur
-        $db = new PDO("mysql:host=localhost;dbname=votre_base_de_donnees", "utilisateur", "mot_de_passe");
+        $db = new \PDO("mysql:host=localhost;dbname=votre_base_de_donnees", "utilisateur", "mot_de_passe");
         $stmt = $db->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->execute([$username]);
-        $userData = $stmt->fetch(PDO::FETCH_ASSOC);
+        $userData = $stmt->fetch(\PDO::FETCH_ASSOC);
         
         if ($userData) {
             $user = new UserModel();
@@ -80,10 +82,10 @@ class UserModel
     public static function findByEmail($email): ?UserModel
     {
         // Logique pour trouver un utilisateur par son email
-        $db = new PDO("mysql:host=localhost;dbname=votre_base_de_donnees", "utilisateur", "mot_de_passe");
+        $db = new \PDO("mysql:host=localhost;dbname=votre_base_de_donnees", "utilisateur", "mot_de_passe");
         $stmt = $db->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
-        $userData = $stmt->fetch(PDO::FETCH_ASSOC);
+        $userData = $stmt->fetch(\PDO::FETCH_ASSOC);
         
         if ($userData) {
             $user = new UserModel();

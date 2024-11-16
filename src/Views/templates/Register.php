@@ -1,14 +1,15 @@
 
                     
-                    <?php if ($this->hasErrors()): ?>
-                        <div class="alert alert-danger">
-                            <ul>
-                                <?php foreach ($this->getErrors() as $error): ?>
-                                    <li><?php echo htmlspecialchars($error); ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
+                    <?php if ($hasErrors): ?>
+    <div class="alert alert-danger">
+        <ul>
+            <?php foreach ($errors as $error): ?>
+                <li><?php echo $error; ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
+
 
                     <form action="/register" method="POST">
                         <div class="mb-3">

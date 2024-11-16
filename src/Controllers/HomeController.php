@@ -22,7 +22,8 @@ class HomeController {
         $view->render('home', [
             'title' => 'Accueil',
             'movies' => $movies,
-            'series' => $series
+            'series' => $series,
+            'loadParticleUniverse' => true // Cette note dit qu'on veut voir les étoiles
         ]);
     }
 }

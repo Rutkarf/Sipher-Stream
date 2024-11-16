@@ -1,5 +1,11 @@
 <?php
 
+namespace App\Controllers;
+
+use App\Models\UserModel;
+use App\Views\View;
+
+
 class RegisterController
 {
     private $username;
@@ -7,6 +13,28 @@ class RegisterController
     private $password;
     private $confirmPassword;
     private $errors = [];
+
+
+
+
+    public function index()
+    {
+        $view = new View();
+        $view->render('register', [
+            'title' => 'Register',
+            'errors' => $this->errors,
+            'hasErrors' => $this->hasErrors()
+        ]);
+    }
+    
+
+
+
+
+
+
+
+
 
     // Getters et Setters
     public function getUsername(): ?string

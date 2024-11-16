@@ -1,10 +1,30 @@
 <?php
 
+
+namespace App\Controllers;
+use App\Models\UserModel;
+use App\Views\View;
+
+
+
+
 class LoginController
 {
+    
     private $email;
     private $password;
     private $errors = [];
+
+
+
+
+
+
+
+    public function index() {
+        $view = new View();
+        $view->render('login', ['title' => 'login !']);
+    }
 
     // Getters et Setters
     public function getEmail(): ?string
