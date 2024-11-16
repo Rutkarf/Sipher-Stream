@@ -21,17 +21,17 @@ class RegisterController
     {
         $view = new View();
         $view->render('register', [
-            'title' => 'Register',
+            
             'errors' => $this->errors,
             'hasErrors' => $this->hasErrors()
         ]);
+        
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->handleRegistration();
+        } else {
+            $this->showRegistrationForm();
+        }
     }
-    
-
-
-
-
-
 
 
 
@@ -77,27 +77,41 @@ class RegisterController
         $this->confirmPassword = $confirmPassword;
     }
 
-    public function register()
-    {
-        if ($this->validateInputs()) {
-            $user = new UserModel();
-            $user->setUsername($this->username);
-            $user->setEmail($this->email);
-            $user->setPassword(password_hash($this->password, PASSWORD_DEFAULT));
+private function handleRegistration()
+{
+    $this->username = $_POST['username'] ?? '';
+    $this->email = $_POST['email'] ?? '';
+    $this->password = $_POST['password'] ?? '';
+    $this->confirmPassword = $_POST['confirm_password'] ?? '';
 
-            if ($user->save()) {
-                // Redirection vers la page de connexion ou le tableau de bord
-                header('Location: /login');
-                exit;
-            } else {
-                $this->errors[] = "Erreur lors de l'enregistrement de l'utilisateur.";
-            }
+    if ($this->validateInputs()) {
+        $user = new UserModel();
+        $user->setUsername($this->username);
+        $user->setEmail($this->email);
+        $user->setPassword(password_hash($this->password, PASSWORD_DEFAULT));
+
+        if ($user->save()) {
+            // Redirection vers la page de connexion ou le tableau de bord
+            header('Location: /login');
+            exit;
+        } else {
+            $this->errors[] = "Erreur lors de l'enregistrement de l'utilisateur.";
         }
-
-        // Si on arrive ici, il y a eu des erreurs
-        // Afficher la vue d'inscription avec les erreurs
-        $this->showRegisterForm();
     }
+
+    // S'il y a des erreurs, on affiche à nouveau le formulaire
+    $this->showRegistrationForm();
+}
+
+private function showRegistrationForm()
+{
+    $view = new View();
+    $view->render('register', [
+        'title' => 'Register',
+        'errors' => $this->errors,
+        'hasErrors' => $this->hasErrors()
+    ]);
+}
 
     private function validateInputs(): bool
     {
@@ -109,15 +123,15 @@ class RegisterController
     }
 
     private function validateUsername(): void
-    {
-        if (empty($this->username)) {
-            $this->errors[] = "Le nom d'utilisateur est requis.";
-        } elseif (strlen($this->username) < 3 || strlen($this->username) > 50) {
-            $this->errors[] = "Le nom d'utilisateur doit contenir entre 3 et 50 caractères.";
-        } elseif (UserModel::findByUsername($this->username)) {
-            $this->errors[] = "Ce nom d'utilisateur est déjà pris.";
-        }
+{
+    if (empty($this->username)) {
+        $this->errors[] = "Le nom d'utilisateur est requis.";
+    } elseif (strlen($this->username) < 3 || strlen($this->username) > 50) {
+        $this->errors[] = "Le nom d'utilisateur doit contenir entre 3 et 50 caractères.";
+    } elseif (UserModel::findByUsername($this->username) !== null) {
+        $this->errors[] = "Ce nom d'utilisateur est déjà pris.";
     }
+}
 
     private function validateEmail(): void
     {

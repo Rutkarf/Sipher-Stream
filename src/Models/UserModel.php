@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Database\Database;
+
+
 class UserModel
 {
     private $id;
@@ -51,51 +54,66 @@ class UserModel
     }
 
     public function save(): bool
-    {
-        // Logique pour sauvegarder l'utilisateur dans la base de données
-        // Exemple simplifié (à adapter selon votre système de base de données) :
-        $db = new \PDO("mysql:host=localhost;dbname=votre_base_de_donnees", "utilisateur", "mot_de_passe");
+{
+    try {
+        $db = Database::getInstance()->getConnection();
         $stmt = $db->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-        return $stmt->execute([$this->username, $this->email, $this->password]);
+        $result = $stmt->execute([$this->username, $this->email, $this->password]);
+        if (!$result) {
+            error_log("Erreur SQL : " . implode(", ", $stmt->errorInfo()));
+        }
+        return $result;
+    } catch (\PDOException $e) {
+        error_log("Erreur PDO : " . $e->getMessage());
+        return false;
     }
+}
 
-    public static function findByUsername($username): ?UserModel
-    {
-        // Logique pour trouver un utilisateur par son nom d'utilisateur
-        $db = new \PDO("mysql:host=localhost;dbname=votre_base_de_donnees", "utilisateur", "mot_de_passe");
+public static function findByUsername($username): ?UserModel
+{
+    try {
+        $db = Database::getInstance()->getConnection();
         $stmt = $db->prepare("SELECT * FROM users WHERE username = ?");
         $stmt->execute([$username]);
         $userData = $stmt->fetch(\PDO::FETCH_ASSOC);
         
-        if ($userData) {
-            $user = new UserModel();
-            $user->setId($userData['id']);
-            $user->setUsername($userData['username']);
-            $user->setEmail($userData['email']);
-            $user->setPassword($userData['password']);
-            return $user;
-        }
-        
+        // Si aucun utilisateur n'est trouvé, $userData sera false
+        return $userData ? self::createFromArray($userData) : null;
+    } catch (\PDOException $e) {
+        error_log("Error finding user by username: " . $e->getMessage());
         return null;
     }
+}
 
-    public static function findByEmail($email): ?UserModel
-    {
-        // Logique pour trouver un utilisateur par son email
-        $db = new \PDO("mysql:host=localhost;dbname=votre_base_de_donnees", "utilisateur", "mot_de_passe");
+
+public static function findByEmail($email): ?UserModel
+{
+    try {
+        $db = Database::getInstance()->getConnection();
         $stmt = $db->prepare("SELECT * FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $userData = $stmt->fetch(\PDO::FETCH_ASSOC);
         
-        if ($userData) {
-            $user = new UserModel();
-            $user->setId($userData['id']);
-            $user->setUsername($userData['username']);
-            $user->setEmail($userData['email']);
-            $user->setPassword($userData['password']);
-            return $user;
-        }
-        
+        return $userData ? self::createFromArray($userData) : null;
+    } catch (\PDOException $e) {
+        error_log("Error finding user by email: " . $e->getMessage());
         return null;
     }
+}
+
+
+private static function createFromArray(?array $userData): ?UserModel
+{
+    if (!$userData) {
+        return null;
+    }
+
+    $user = new UserModel();
+    $user->setId($userData['id'] ?? null);
+    $user->setUsername($userData['username'] ?? '');
+    $user->setEmail($userData['email'] ?? '');
+    $user->setPassword($userData['password'] ?? '');
+    return $user;
+}
+   
 }
