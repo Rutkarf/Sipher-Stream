@@ -50,9 +50,4 @@ class View {
         }
     }
 
-    public function setLayout($layout) {
-        if (isset($this->layouts[$layout])) {
-            $this->layout = $layout;
-        }
-    }
 }

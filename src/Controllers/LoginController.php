@@ -1,54 +1,32 @@
 <?php
 
-
 namespace App\Controllers;
 use App\Models\UserModel;
 use App\Views\View;
 
-
-
-
 class LoginController
 {
-    
     private $email;
     private $password;
     private $errors = [];
 
-
-
-
-
-
-
-    public function index() {
-        $view = new View();
-        $view->render('login', ['title' => 'login !']);
+    public function index() 
+    {
+        error_log("Méthode index() appelée");
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            error_log("Formulaire soumis");
+            $this->handleLogin();
+        } else {
+            error_log("Affichage du formulaire");
+            $this->showLoginForm();
+        }
     }
 
-    // Getters et Setters
-    public function getEmail(): ?string
+    private function handleLogin()
     {
-        return $this->email;
-    }
+        $this->email = $_POST['email'] ?? '';
+        $this->password = $_POST['password'] ?? '';
 
-    public function setEmail(string $email): void
-    {
-        $this->email = $email;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): void
-    {
-        $this->password = $password;
-    }
-
-    public function login()
-    {
         if ($this->validateInputs()) {
             $user = UserModel::findByEmail($this->email);
             
@@ -62,7 +40,6 @@ class LoginController
             }
         }
 
-        // Si on arrive ici, il y a eu des erreurs
         $this->showLoginForm();
     }
 
@@ -97,10 +74,14 @@ class LoginController
         $_SESSION['username'] = $user->getUsername();
     }
 
-    public function showLoginForm()
+    private function showLoginForm()
     {
-        // Inclure la vue du formulaire de connexion
-        include 'views/login.php';
+        $view = new View();
+        $view->render('login', [
+            'title' => 'Login',
+            'errors' => $this->errors,
+            'hasErrors' => $this->hasErrors()
+        ]);
     }
 
     public function logout()
@@ -121,5 +102,6 @@ class LoginController
         return !empty($this->errors);
     }
 }
+
 
 

@@ -1,3 +1,9 @@
+<?php
+$isLoggedIn = isset($_SESSION['user_id']);
+$username = $isLoggedIn ? $_SESSION['username'] : '';
+?>
+
+
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
@@ -35,10 +41,15 @@
             </ul>
         </div>
 
-        <!-- Right part of the navbar (Connexion & Register) -->
-        <div class="d-flex">
-            <a href="/login" class="btn btn-primary ms-2">Connexion</a> <!-- Espacement à gauche -->
-            <a href="/register" class="btn btn-outline-primary ms-2">Register</a> <!-- Bouton Register avec espacement -->
+        <!-- Right part of the navbar (User info or Login/Register) -->
+        <div class="d-flex align-items-center">
+            <?php if ($isLoggedIn): ?>
+                <span class="text-light me-3"><?php echo htmlspecialchars($username); ?></span>
+                <a href="/logout" class="btn btn-outline-light">Déconnexion</a>
+            <?php else: ?>
+                <a href="/login" class="btn btn-primary ms-2">Connexion</a>
+                <a href="/register" class="btn btn-outline-primary ms-2">Register</a>
+            <?php endif; ?>
         </div>
     </div>
 </nav>

@@ -1,12 +1,12 @@
-<? error_reporting(E_ALL);
+<?php
+ob_start();
+
+
+error_reporting(E_ALL);
 ini_set('display_errors', 1);
-?>
-<?php
 header('Content-Type: text/html; charset=utf-8');
-?>
 
 
-<?php
 require __DIR__ . '/vendor/autoload.php';
 
 use App\Router;
@@ -36,3 +36,6 @@ try {
 } catch (Exception $e) {
     echo "404 Not Found";
 }
+
+
+ob_end_flush();

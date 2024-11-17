@@ -23,7 +23,7 @@ class HomeController {
             'title' => 'Accueil',
             'movies' => $movies,
             'series' => $series,
-            'loadParticleUniverse' => true // Cette note dit qu'on veut voir les étoiles
+            
         ]);
     }
 }
