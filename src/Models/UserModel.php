@@ -86,20 +86,28 @@ public static function findByUsername($username): ?UserModel
 }
 
 
-public static function findByEmail($email): ?UserModel
+public static function findByEmail($email)
 {
-    try {
-        $db = Database::getInstance()->getConnection();
-        $stmt = $db->prepare("SELECT * FROM users WHERE email = ?");
-        $stmt->execute([$email]);
-        $userData = $stmt->fetch(\PDO::FETCH_ASSOC);
-        
-        return $userData ? self::createFromArray($userData) : null;
-    } catch (\PDOException $e) {
-        error_log("Error finding user by email: " . $e->getMessage());
-        return null;
+    error_log("UserModel::findByEmail() appelée avec email: " . $email);
+    $db = Database::getInstance()->getConnection();
+    $stmt = $db->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->execute([$email]);
+    $userData = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+    if ($userData) {
+        error_log("Utilisateur trouvé dans la base de données");
+        $user = new self();
+        $user->setId($userData['id']);
+        $user->setEmail($userData['email']);
+        $user->setPassword($userData['password']);
+        // Assurez-vous de définir tous les autres champs nécessaires
+        return $user;
     }
+
+    error_log("Aucun utilisateur trouvé avec cet email");
+    return null;
 }
+
 
 
 private static function createFromArray(?array $userData): ?UserModel
@@ -115,5 +123,49 @@ private static function createFromArray(?array $userData): ?UserModel
     $user->setPassword($userData['password'] ?? '');
     return $user;
 }
-   
+public function getFavorites($userId)
+{
+    $db = Database::getInstance()->getConnection();
+    $stmt = $db->prepare("SELECT * FROM favorites WHERE user_id = ?");
+    $stmt->execute([$userId]);
+    return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+}
+
+public function addFavorite($userId, $itemId, $itemType, $itemData)
+{
+    $db = Database::getInstance()->getConnection();
+    $stmt = $db->prepare("INSERT INTO favorites (user_id, item_id, item_type, item_data) VALUES (?, ?, ?, ?)");
+    return $stmt->execute([$userId, $itemId, $itemType, json_encode($itemData)]);
+}
+
+public function removeFavorite($userId, $itemId, $itemType)
+{
+    $db = Database::getInstance()->getConnection();
+    $stmt = $db->prepare("DELETE FROM favorites WHERE user_id = ? AND item_id = ? AND item_type = ?");
+    return $stmt->execute([$userId, $itemId, $itemType]);
+}
+public static function findById($id): ?UserModel
+{
+    try {
+        $db = Database::getInstance()->getConnection();
+        $stmt = $db->prepare("SELECT * FROM users WHERE id = ?");
+        $stmt->execute([$id]);
+        $userData = $stmt->fetch(\PDO::FETCH_ASSOC);
+        
+        if ($userData) {
+            $user = new UserModel();
+            $user->setId($userData['id']);
+            $user->setUsername($userData['username']);
+            $user->setEmail($userData['email']);
+            // Ne pas définir le mot de passe ici pour des raisons de sécurité
+            return $user;
+        }
+        
+        return null;
+    } catch (\PDOException $e) {
+        error_log("Error finding user by ID: " . $e->getMessage());
+        return null;
+    }
+}
+
 }

@@ -15,7 +15,7 @@ use App\Controllers\FilmsController;
 use App\Controllers\SeriesController;
 use App\Controllers\LoginController;
 use App\Controllers\RegisterController;
-
+use App\Controllers\UserController;
 
 $router = new Router();
 
@@ -25,6 +25,12 @@ $router->add('/films', FilmsController::class, 'index');
 $router->add('/series', SeriesController::class, 'index');
 $router->add('/login', LoginController::class, 'index');
 $router->add('/register', RegisterController::class, 'index');
+$router->add('/dashboard', UserController::class, 'dashboard');
+$router->add('/favorites', UserController::class, 'getFavorites');
+$router->add('/favorites/remove', UserController::class, 'removeFavorite');
+$router->add('/logout', LoginController::class, 'logout');
+
+
 
 
 // Get current URL path

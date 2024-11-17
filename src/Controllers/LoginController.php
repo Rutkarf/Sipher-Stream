@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+
 use App\Models\UserModel;
 use App\Views\View;
 
@@ -10,66 +11,75 @@ class LoginController
     private $password;
     private $errors = [];
 
-    public function index() 
-    {
-        error_log("Méthode index() appelée");
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            error_log("Formulaire soumis");
-            $this->handleLogin();
-        } else {
-            error_log("Affichage du formulaire");
-            $this->showLoginForm();
-        }
+    
+
+    public function index()
+{
+    error_log("LoginController::index() appelée. Méthode: " . $_SERVER['REQUEST_METHOD']);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $this->handleLogin();
+    } else {
+        $this->showLoginForm();
     }
+}
 
-    private function handleLogin()
-    {
-        $this->email = $_POST['email'] ?? '';
-        $this->password = $_POST['password'] ?? '';
+private function handleLogin()
+{
+    error_log("handleLogin() appelée");
+    $this->email = $_POST['email'] ?? '';
+    $this->password = $_POST['password'] ?? '';
 
-        if ($this->validateInputs()) {
-            $user = UserModel::findByEmail($this->email);
-            
-            if ($user && password_verify($this->password, $user->getPassword())) {
-                // Authentification réussie
+    error_log("Email reçu: " . $this->email);
+    error_log("Mot de passe reçu: " . (empty($this->password) ? "vide" : "non-vide"));
+
+    if ($this->validateInputs()) {
+        error_log("Inputs validés");
+        $user = UserModel::findByEmail($this->email);
+        
+        if ($user) {
+            error_log("Utilisateur trouvé. ID: " . $user->getId());
+            if (password_verify($this->password, $user->getPassword())) {
+                error_log("Mot de passe correct. Démarrage de la session.");
                 $this->startUserSession($user);
+                error_log("Redirection vers /dashboard");
                 header('Location: /dashboard');
                 exit;
             } else {
+                error_log("Mot de passe incorrect");
                 $this->errors[] = "Email ou mot de passe incorrect.";
             }
+        } else {
+            error_log("Aucun utilisateur trouvé avec cet email");
+            $this->errors[] = "Email ou mot de passe incorrect.";
         }
-
-        $this->showLoginForm();
+    } else {
+        error_log("Validation des inputs échouée. Erreurs: " . implode(", ", $this->errors));
     }
+
+    error_log("Fin de handleLogin(). Affichage du formulaire avec erreurs.");
+    $this->showLoginForm();
+}
 
     private function validateInputs(): bool
-    {
-        $this->validateEmail();
-        $this->validatePassword();
-
-        return empty($this->errors);
-    }
-
-    private function validateEmail(): void
     {
         if (empty($this->email)) {
             $this->errors[] = "L'adresse email est requise.";
         } elseif (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
             $this->errors[] = "L'adresse email n'est pas valide.";
         }
-    }
 
-    private function validatePassword(): void
-    {
         if (empty($this->password)) {
             $this->errors[] = "Le mot de passe est requis.";
         }
+
+        return empty($this->errors);
     }
 
     private function startUserSession(UserModel $user): void
     {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         $_SESSION['user_id'] = $user->getId();
         $_SESSION['username'] = $user->getUsername();
     }
@@ -78,7 +88,7 @@ class LoginController
     {
         $view = new View();
         $view->render('login', [
-            'title' => 'Login',
+            'title' => 'Connexion',
             'errors' => $this->errors,
             'hasErrors' => $this->hasErrors()
         ]);
@@ -86,15 +96,12 @@ class LoginController
 
     public function logout()
     {
-        session_start();
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
         session_destroy();
         header('Location: /login');
         exit;
-    }
-
-    public function getErrors(): array
-    {
-        return $this->errors;
     }
 
     public function hasErrors(): bool
@@ -102,6 +109,3 @@ class LoginController
         return !empty($this->errors);
     }
 }
-
-
-
