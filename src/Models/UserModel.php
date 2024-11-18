@@ -69,20 +69,23 @@ class UserModel
     }
 }
 
-public static function findByUsername($username): ?UserModel
+public static function findByUsername($username)
 {
-    try {
-        $db = Database::getInstance()->getConnection();
-        $stmt = $db->prepare("SELECT * FROM users WHERE username = ?");
-        $stmt->execute([$username]);
-        $userData = $stmt->fetch(\PDO::FETCH_ASSOC);
-        
-        // Si aucun utilisateur n'est trouvé, $userData sera false
-        return $userData ? self::createFromArray($userData) : null;
-    } catch (\PDOException $e) {
-        error_log("Error finding user by username: " . $e->getMessage());
-        return null;
+    $db = Database::getInstance()->getConnection();
+    $stmt = $db->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->execute([$username]);
+    $userData = $stmt->fetch(\PDO::FETCH_ASSOC);
+    
+    if ($userData) {
+        $user = new self();
+        $user->setId($userData['id']);
+        $user->setUsername($userData['username']);
+        $user->setEmail($userData['email']);
+        $user->setPassword($userData['password']);
+        return $user;
     }
+    
+    return null;
 }
 
 

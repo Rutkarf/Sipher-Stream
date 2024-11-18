@@ -7,65 +7,63 @@ use App\Views\View;
 
 class LoginController
 {
-    private $email;
+    private $username;
     private $password;
     private $errors = [];
 
-    
-
     public function index()
-{
-    error_log("LoginController::index() appelée. Méthode: " . $_SERVER['REQUEST_METHOD']);
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $this->handleLogin();
-    } else {
-        $this->showLoginForm();
+    {
+        error_log("LoginController::index() appelée. Méthode: " . $_SERVER['REQUEST_METHOD']);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->handleLogin();
+        } else {
+            $this->showLoginForm();
+        }
     }
-}
 
-private function handleLogin()
-{
-    error_log("handleLogin() appelée");
-    $this->email = $_POST['email'] ?? '';
-    $this->password = $_POST['password'] ?? '';
+    private function handleLogin()
+    {
+        error_log("handleLogin() appelée");
+        $this->username = $_POST['username'] ?? '';
+        $this->password = $_POST['password'] ?? '';
 
-    error_log("Email reçu: " . $this->email);
-    error_log("Mot de passe reçu: " . (empty($this->password) ? "vide" : "non-vide"));
+        error_log("Nom d'utilisateur reçu: " . $this->username);
+        error_log("Mot de passe reçu: " . (empty($this->password) ? "vide" : "non-vide"));
 
-    if ($this->validateInputs()) {
-        error_log("Inputs validés");
-        $user = UserModel::findByEmail($this->email);
-        
-        if ($user) {
-            error_log("Utilisateur trouvé. ID: " . $user->getId());
-            if (password_verify($this->password, $user->getPassword())) {
-                error_log("Mot de passe correct. Démarrage de la session.");
-                $this->startUserSession($user);
-                error_log("Redirection vers /dashboard");
-                header('Location: /dashboard');
-                exit;
+        if ($this->validateInputs()) {
+            error_log("Inputs validés");
+            $user = UserModel::findByUsername($this->username);
+
+            if ($user) {
+                error_log("Utilisateur trouvé. ID: " . $user->getId());
+                if (password_verify($this->password, $user->getPassword())) {
+                    error_log("Mot de passe correct. Démarrage de la session.");
+                    $this->startUserSession($user);
+                    error_log("Session started. User ID: " . $_SESSION['user_id'] . ", Username: " . $_SESSION['username']);
+                    error_log("Attempting to redirect to dashboard");
+                    header('Location: /dashboard');
+                    error_log("This line should not be reached if redirect is successful");
+                    exit;
+                } else {
+                    error_log("Mot de passe incorrect");
+                    $this->errors[] = "Nom d'utilisateur ou mot de passe incorrect.";
+                }
             } else {
-                error_log("Mot de passe incorrect");
-                $this->errors[] = "Email ou mot de passe incorrect.";
+                error_log("Aucun utilisateur trouvé avec ce nom d'utilisateur");
+                $this->errors[] = "Nom d'utilisateur ou mot de passe incorrect.";
             }
         } else {
-            error_log("Aucun utilisateur trouvé avec cet email");
-            $this->errors[] = "Email ou mot de passe incorrect.";
+            error_log("Validation des inputs échouée. Erreurs: " . implode(", ", $this->errors));
         }
-    } else {
-        error_log("Validation des inputs échouée. Erreurs: " . implode(", ", $this->errors));
-    }
 
-    error_log("Fin de handleLogin(). Affichage du formulaire avec erreurs.");
-    $this->showLoginForm();
-}
+        error_log("Fin de handleLogin(). Affichage du formulaire avec erreurs.");
+        $this->showLoginForm();
+    }
 
     private function validateInputs(): bool
     {
-        if (empty($this->email)) {
-            $this->errors[] = "L'adresse email est requise.";
-        } elseif (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
-            $this->errors[] = "L'adresse email n'est pas valide.";
+        if (empty($this->username)) {
+            $this->errors[] = "Le nom d'utilisateur est requis.";
         }
 
         if (empty($this->password)) {
