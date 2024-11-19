@@ -20,7 +20,7 @@ Pour faire fonctionner cette magie, tu auras besoin de quelques outils spéciaux
 
 ## Comment installer le Site MVC 🎮
 
-# Demande à un développeur de t'aider à copier le Site MVC depuis ici :
+# Demande à un développeur de copier ( git clone ) le Site MVC depuis ici :
 
 ``` git clone https://github.com/Rutkarf/Sipher-Stream ```
 
