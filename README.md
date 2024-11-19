@@ -64,19 +64,19 @@ Ce Site MVC est pour tout le monde ! Tu peux y jouer comme tu veux, mais n'oubli
 Pour les grands qui veulent en savoir plus 🧐
 
 ## Table des matières
--Prérequis détaillés
--Installation avancée
--Configuration technique
--Utilisation pour les développeurs
--Déploiement en production
--Comment contribuer
--Licence et droits
+- Prérequis détaillés
+- Installation avancée
+- Configuration technique
+- Utilisation pour les développeurs
+- Déploiement en production
+- Comment contribuer
+- Licence et droits
 
 ## Prérequis détaillés
--PHP 7.4 ou supérieur
--Composer (gestionnaire de dépendances PHP)
--Node.js et npm (pour les assets front-end)
--Git (pour le contrôle de version)
+- PHP 7.4 ou supérieur
+- Composer (gestionnaire de dépendances PHP)
+- Node.js et npm (pour les assets front-end)
+- Git (pour le contrôle de version)
 
 ## Installation avancée
 Suivez les étapes d'installation mentionnées plus haut. Pour une installation plus avancée, vous pouvez également configurer un environnement de développement local avec Docker.
