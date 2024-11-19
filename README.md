@@ -2,7 +2,7 @@
 
 ## Bienvenue dans le monde magique ! 🌈
 
-Salut les amis ! Bienvenue dans le monde magique de **Sipher-stream**, où tu peux regarder plein de films et de séries cool !
+Salut les amis ! Bienvenue dans le monde magique de **Sipher-stream**, où tu peux regarder plein de films et de séries cool ! 🌟🎥
 
 ## Qu'est-ce que c'est ? 🤔
 
@@ -114,6 +114,5 @@ Configurez votre serveur web (Apache, Nginx) pour pointer vers le dossier public
 - Ouvrez une Pull Request
 
 ## Licence et droits
-> Ce projet est sous licence libre.
 > Développé avec ❤️ par Fraktur (https://github.com/Rutkarf)
-# Amusez-vous bien avec Sipher-stream, petits et grands cinéphiles ! 🌟🎥
+
