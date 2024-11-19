@@ -30,15 +30,15 @@ Pour faire fonctionner cette magie, tu auras besoin de quelques outils spéciaux
 ``` npm instal``` l 
 
 ## Comment préparer le jeu 🛠️
-📄 Trouve le papier magique appelé config.php dans le dossier config
+📄 Trouve le papier magique appelé ```config.php``` dans le dossier config
 🔐 Écris tes secrets magiques dedans (comme le nom de ta base de données)
 
 ## Comment jouer �
 Dis les mots magiques pour démarrer le jeu :
-php artisan serve
+``` php artisan serve```
 
 ## Demande à un développeur d'ouvrir le navigateur et d'aller à 
-http://localhost:
+``` http://localhost: ```
 
 Si tu veux montrer le jeu à tes amis 🌍
 
@@ -80,27 +80,27 @@ Git (pour le contrôle de version)
 Suivez les étapes d'installation mentionnées plus haut. Pour une installation plus avancée, vous pouvez également configurer un environnement de développement local avec Docker.
 
 ## Configuration technique
-Le fichier config.php contient toutes les configurations importantes, y compris les informations de connexion à la base de données et les clés API. Assurez-vous de le configurer correctement pour votre environnement.
+Le fichier ``` config.php ``` contient toutes les configurations importantes, y compris les informations de connexion à la base de données et les clés API. Assurez-vous de le configurer correctement pour votre environnement.
 
 Utilisation pour les développeurs
 
 ## Pour lancer le serveur de développement :
-php artisan serve
+``` php artisan serve ```
 
 ## Pour compiler les assets front-end :
-npm run dev
+``` npm run dev ```
 
 ## Déploiement en production
 Configurez votre serveur web (Apache, Nginx) pour pointer vers le dossier public/ du projet.
 
 ## Installez les dépendances de production :
-composer install --no-dev
-npm install --production
+``` composer install --no-dev ```
+``` npm install --production ```
 
 ## Optimisez l'application :
-php artisan config:cache
-php artisan route:cache
-php artisan view:cache
+``` php artisan config:cache``` 
+``` php artisan route:cache ```
+``` php artisan view:cache ```
 
 ## Comment contribuer
 ## Nous adorons les contributions !
@@ -108,9 +108,9 @@ php artisan view:cache
 ## Suivez ces étapes :
 
 ## Forkez le projet
-Créez votre branche (git checkout -b feature/AmazingFeature)
-Committez vos changements (git commit -m 'Add AmazingFeature')
-Poussez vers la branche (git push origin feature/AmazingFeature)
+Créez votre branche ```(git checkout -b feature/AmazingFeature)```
+Committez vos changements ```(git commit -m 'Add AmazingFeature')```
+Poussez vers la branche ```(git push origin feature/AmazingFeature)```
 Ouvrez une Pull Request
 
 ## Licence et droits
