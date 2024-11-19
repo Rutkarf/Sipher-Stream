@@ -114,6 +114,6 @@ Configurez votre serveur web (Apache, Nginx) pour pointer vers le dossier public
 - Ouvrez une Pull Request
 
 ## Licence et droits
-Ce projet est sous licence libre.
-Développé avec ❤️ par Fraktur (https://github.com/Rutkarf)
-Amusez-vous bien avec Sipher-stream, petits et grands cinéphiles ! 🌟🎥
+> Ce projet est sous licence libre.
+> Développé avec ❤️ par Fraktur (https://github.com/Rutkarf)
+# Amusez-vous bien avec Sipher-stream, petits et grands cinéphiles ! 🌟🎥
