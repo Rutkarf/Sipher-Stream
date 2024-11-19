@@ -18,46 +18,46 @@ Pour faire fonctionner cette magie, tu auras besoin de quelques outils spéciaux
 - 🎨 Deux amis appelés **Node.js et npm** (ils aident à rendre tout joli)
 - 📝 Un crayon magique appelé **Git** (il aide à garder une trace de tous les changements)
 
-## Comment installer le jeu 🎮
+## Comment installer le Site MVC 🎮
 
-# Demande à un développeur de t'aider à copier le jeu depuis ici : https://github.com/Rutkarf/Sipher-Stream
+# Demande à un développeur de t'aider à copier le Site MVC depuis ici : https://github.com/Rutkarf/Sipher-Stream
 
-## Va dans le dossier du jeu comme si tu entrais dans une maison magique :
+## Va dans le dossier du Site MVC comme si tu entrais dans une maison magique :
 ``` cd cinetech_learning ```
 
 # Dis les mots magiques pour que tout s'installe :
 ```composer install ```
 ``` npm instal``` l 
 
-## Comment préparer le jeu 🛠️
+## Comment préparer le Site MVC 🛠️
 - 📄 Trouve le papier magique appelé ```config.php``` dans le dossier config
 - 🔐 Écris tes secrets magiques dedans (comme le nom de ta base de données)
 
 ## Comment jouer �
-Dis les mots magiques pour démarrer le jeu :
+Dis les mots magiques pour démarrer le Site MVC :
 ``` php artisan serve```
 
 ## Demande à un développeur d'ouvrir le navigateur et d'aller à 
 ``` http://localhost: ```
 
-Si tu veux montrer le jeu à tes amis 🌍
+Si tu veux montrer le Site MVC à tes amis 🌍
 
-## Si tu veux que tout le monde puisse jouer à ton jeu :
-- 🖥️ Demande à un développeur de mettre le jeu sur un grand ordinateur appelé serveur
-- ✅ Assure-toi que tous les morceaux du jeu sont bien là
+## Si tu veux que tout le monde puisse jouer à ton Site MVC :
+- 🖥️ Demande à un développeur de mettre le Site MVC sur un grand ordinateur appelé serveur
+- ✅ Assure-toi que tous les morceaux du Site MVC sont bien là
 - 🗝️ Dis au serveur où trouver tes secrets magiques
-- 🚀 Utilise des sorts spéciaux pour que le jeu aille plus vite
-- Si tu veux aider à améliorer le jeu 🙌
+- 🚀 Utilise des sorts spéciaux pour que le Site MVC aille plus vite
+- Si tu veux aider à améliorer le Site MVC 🙌
 
-## Si tu as des idées pour rendre le jeu encore plus cool :
+## Si tu as des idées pour rendre le Site MVC encore plus cool :
 
-- Fais une copie du jeu pour toi
+- Fais une copie du Site MVC pour toi
 - Crée un nouvel endroit pour mettre tes idées
 - Ajoute tes super idées
 - Montre-les aux autres pour qu'ils puissent les voir
 
-## Règles du jeu 📜
-Ce jeu est pour tout le monde ! Tu peux y jouer comme tu veux, mais n'oublie pas d'être gentil avec les autres joueurs. 🤝
+## Règles du Site MVC 📜
+Ce Site MVC est pour tout le monde ! Tu peux y jouer comme tu veux, mais n'oublie pas d'être gentil avec les autres joueurs. 🤝
 
 Pour les grands qui veulent en savoir plus 🧐
 
