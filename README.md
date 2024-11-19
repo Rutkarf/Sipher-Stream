@@ -28,8 +28,8 @@ Pour faire fonctionner cette magie, tu auras besoin de quelques outils spéciaux
 ``` cd cinetech_learning ```
 
 # Dis les mots magiques pour que tout s'installe :
-```composer install ```
-``` npm instal``` l 
+```composer install ``` '''
+``` npm instal``` 
 
 ## Comment préparer le Site MVC 🛠️
 - 📄 Trouve le papier magique appelé ```config.php``` dans le dossier config
