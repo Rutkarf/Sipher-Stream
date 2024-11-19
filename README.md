@@ -28,7 +28,7 @@ Pour faire fonctionner cette magie, tu auras besoin de quelques outils spéciaux
 ``` cd cinetech_learning ```
 
 # Dis les mots magiques pour que tout s'installe :
-```composer install ``` '''
+```composer install ```
 ``` npm instal``` 
 
 ## Comment préparer le Site MVC 🛠️
